@@ -1,0 +1,24 @@
+
+:root {
+  line-height: 1.5;
+  font-weight: 300;
+  --header-element-color : #ed1a3b;
+  --nav-element-color : #ffcd6f;
+  --nav-element-hoverColor : #ecd2a1
+}
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+  color: var(--nav-element-color);
+}
+a:hover {
+  color: var(--nav-element-hoverColor);
+}
+
+body {
+  width: 100%;
+  margin: 0; /* Убираем отступы по вертикали */
+  padding: 0;
+}
+
+
