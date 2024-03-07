@@ -7,11 +7,11 @@ import Footer from './components/Footer';
 import Characters from './components/Characters';
 import Comics from './components/Comics';
 
-
+import { Navigate } from 'react-router-dom';
 export default function App() {
   const routes: RouteObject[] = [
-    {
-       path: "/characters",element: <Characters /> },
+    { path: "/", element: <Navigate to="/characters" replace /> },
+    { path: "/characters",element: <Characters /> },
      { path: "/comics", element: <Comics/>  },
      { path: "*", element: <NoMatch /> },
      /* children: [

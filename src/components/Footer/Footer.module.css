@@ -1,0 +1,12 @@
+footer { 
+    background-color: var(--footer-element-grey) ;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5%;
+    color: var(--footer-element-color)
+}
+footer > img  { 
+    width: 5%;
+    
+}

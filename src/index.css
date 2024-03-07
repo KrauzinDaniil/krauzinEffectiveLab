@@ -4,7 +4,9 @@
   font-weight: 300;
   --header-element-color : #ed1a3b;
   --nav-element-color : #ffcd6f;
-  --nav-element-hoverColor : #ecd2a1
+  --nav-element-hoverColor : #eca1a1;
+  --footer-element-grey : #6a6a6a;
+  --footer-element-color : #ffffff;
 }
 a {
   font-weight: 500;
