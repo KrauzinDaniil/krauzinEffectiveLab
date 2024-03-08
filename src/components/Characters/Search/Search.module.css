@@ -1,0 +1,44 @@
+.wrapper { 
+   width: 100%;
+   height: 100px;
+   
+}
+.innerWrapper { 
+    
+   
+    height: 30%;
+    display: flex;
+    align-items: center;
+    
+    padding: 1%;
+    padding-left: 0%;
+    
+  
+     
+}
+
+.numba { 
+  
+    align-self: flex-end;
+    margin-left: 5px;
+}
+.form > input { 
+    width: 100%;
+    height: 30px;
+
+}
+.form { 
+    width: 82%;
+    
+}
+
+.wrapperSearch { 
+     width: 100%;
+     display: flex;
+     justify-content: space-between;
+
+}
+.search {
+     width: 14%;
+
+}

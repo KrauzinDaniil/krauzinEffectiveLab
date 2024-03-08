@@ -6,12 +6,12 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer';
 import Characters from './components/Characters';
 import Comics from './components/Comics';
-
 import { Navigate } from 'react-router-dom';
+import { cards } from './components/Storage(Mock)/Data';
 export default function App() {
   const routes: RouteObject[] = [
-    { path: "/", element: <Navigate to="/characters" replace /> },
-    { path: "/characters",element: <Characters /> },
+     { path: "/", element: <Navigate to="/characters" replace /> },
+     { path: "/characters",element: <Characters cards = {cards} /> },
      { path: "/comics", element: <Comics/>  },
      { path: "*", element: <NoMatch /> },
      /* children: [
