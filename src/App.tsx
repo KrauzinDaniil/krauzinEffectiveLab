@@ -1,4 +1,3 @@
-
 import './App.css'
 import { Link, useRoutes, Outlet } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
@@ -35,15 +34,15 @@ export default function App() {
 
   return (
     <div className='wrapper'>
-     
-        <Header></Header>
-    
-         
-        {element}
-      
 
-      
-        <Footer></Footer>
+      <Header></Header>
+
+
+      {element}
+
+
+
+      <Footer></Footer>
 
     </div>
   );

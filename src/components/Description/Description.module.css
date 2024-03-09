@@ -1,46 +1,53 @@
-.photo { 
+.photo {
     width: 100%;
     height: 450px;
     object-fit: cover;
 }
-.wrapper  {
+
+.wrapper {
     display: flex;
     width: 50%;
 
     justify-content: space-between;
 }
-.name { 
+
+.name {
     font-family: RobotoSlab, sans-serif;
     font-weight: 700;
     font-size: 30px;
     letter-spacing: -1px;
 }
-.innerWrapper  {
+
+.innerWrapper {
     padding-left: 4%;
     padding-top: 1%;
 }
-.description { 
+
+.description {
     font-family: RobotoSlab, sans-serif;
     font-size: 25px;
     letter-spacing: -0.5px;
-    line-height: normal; 
-    width: 70%;
+    line-height: normal;
+    width: 90%;
 }
-.label  {
+
+.label {
     padding-top: 1%;
     font-family: RobotoCondensedExtraBold, sans-serif;
     font-size: 27px;
     font-weight: 700;
     letter-spacing: -1px;
 }
-.listElem { 
+
+.listElem {
     font-family: RobotoSlab, sans-serif;
     white-space: nowrap;
     font-size: 18px;
     color: var(--list-color);
     font-weight: 100;
-    
+
 }
-.listElem:hover { 
+
+.listElem:hover {
     color: var(--list-color-on-hover);
 }

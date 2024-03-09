@@ -1,26 +1,29 @@
-.photo > img {
+.photo>img {
     width: 100%;
     height: 175px;
     object-fit: cover
 }
 
-.card{ 
+.card {
     border: 1px solid black;
     width: 15%;
     margin-top: 1%;
- 
+
 }
+
 .description {
     height: 100px;
     padding: 3%;
 }
-.heroName { 
+
+.heroName {
     color: var(--header-element-color);
     font-family: 'RobotoSlab', sans-serif;
     font-weight: 700;
 }
-.about { 
-    font-size: 12px;
+
+.about {
+    font-size: 13.5px;
     color: var(--description-element-color);
     font-family: 'RobotoSlabLight', sans-serif;
     font-weight: 100;
