@@ -34,4 +34,11 @@ nav > div   {
 
 .lined {
     text-decoration: underline;
+    font-weight: bold;
+}
+.navLink {
+    font-weight: 100;
+}
+.nolined { 
+    font-weight: bold;
 }

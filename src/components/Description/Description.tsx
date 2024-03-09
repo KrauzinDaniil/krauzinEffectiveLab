@@ -17,9 +17,9 @@ const VisualHeros: React.FC<ListData> = (props)  =>  {
 
              </div>
 
-             <div className={classes.Label}> { props.isCharacter ? "Comics" :  "Heroes " }  
+             <div className={classes.label}> { props.isCharacter ? "Comics" :  "Heroes " }  
              {props.contentList.map((item, index) => (
-              <Link to={props.isCharacter ? "/comics/" + item.id : "/characters/" + item.id}>  <p key={index}>{item.name}</p> </Link> 
+              <Link to={props.isCharacter ? "/comics/" + item.id : "/characters/" + item.id}>  <div key={index} className={classes.listElem}>{item.name}</div> </Link> 
             ))}
 
 

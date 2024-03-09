@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = (props) => {
         <div className={classes.photo}>
         <img src={props.imageUrl}/>
         <div className={classes.description}>
-            <div className={classes.heroName}> <Link to= {"/characters/" + props.id}>{props.name}</Link></div>
+            <div> <Link to= {"/characters/" + props.id} className={classes.heroName}>{props.name}</Link></div>
             <div className={classes.about}>{props.description}</div>    
         
         

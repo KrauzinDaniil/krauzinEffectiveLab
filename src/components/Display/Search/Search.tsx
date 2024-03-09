@@ -16,19 +16,19 @@ const Search: React.FC<searchProps> = (props) => {
        
 
        <div className={classes.wrapper}>
-       <div className={classes.innerWrapper}> <h1>{props.type === true ? "Сharacters" : "Comics"  }</h1>  <div className={classes.numba}> ({props.amount})</div> </div>
+       <div className={classes.innerWrapper}> <h1 className={classes.searchLabel}>{props.type === true ? "Сharacters" : "Comics"  }</h1>  <div className={classes.amount}> ({props.amount})</div> </div>
        <div className={classes.wrapperSearch}>
 
         
        <form action="" method="" className={classes.form}>
        <input type="text" name="search"  placeholder={
         "Search for " + 
-        (props.type ===true ? "characters" : "comics") + 
+        (props.type ===true ? "Characters" : "Comics") + 
         " by name"
     }  />
        </form>
         
-        <button className={classes.search}>Search</button>
+        <button className={classes.search} onClick={() =>  {}}>SEARCH</button>
 
        </div>
        </div>
