@@ -1,118 +1,61 @@
 
 import './App.css'
-import { Outlet, Link, useRoutes, useParams } from "react-router-dom";
+import { Link, useRoutes, Outlet } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import Header from './components/Header/Header';
 import Footer from './components/Footer';
-import Characters from './components/Characters';
-import Comics from './components/Comics';
-import { Navigate } from 'react-router-dom';
-import { cards } from './components/Storage(Mock)/Data';
+import Display from './components/Display';
+import { heroesCards, comicsCards } from './components/Storage(Mock)/Data';
+import Description from './components/Description/Description';
 export default function App() {
   const routes: RouteObject[] = [
-     { path: "/", element: <Navigate to="/characters" replace /> },
-     { path: "/characters",element: <Characters cards = {cards} /> },
-     { path: "/comics", element: <Comics/>  },
-     { path: "*", element: <NoMatch /> },
-     /* children: [
-        { index: true, element: <Characters /> },
-        { path: "/characters", element: <Characters /> },
-        { path: "/comics", element: <Comics/>},
-       /* {
-          path: "/courses",
-          element: <Courses />,
-          children: [
-            { index: true, element: <CoursesIndex /> },
-            { path: "/courses/:id", element: <Course /> },
-          ],
-        },*/
-    
+    {
+      path: "/", element: <Layout />, children: [{ index: true, element: <Display cards={heroesCards} /> },
+      {
+        path: "/characters",
+        element: <Display cards={heroesCards} />,
+      },
+      { path: "/characters/:id", element: <Description cards={heroesCards} /> },
+
+      { path: "/comics", element: <Display cards={comicsCards} /> },
+      { path: "/comics/:id", element: <Description cards={comicsCards} /> },
+      { path: "*", element: <NoMatch /> },
+
       ]
-    
-  
+    },
+
+
+
+  ]
+
+
 
 
   const element = useRoutes(routes);
 
   return (
     <div className='wrapper'>
-      <Header></Header>
+     
+        <Header></Header>
+    
+         
+        {element}
+      
 
-      {element}
+      
+        <Footer></Footer>
 
-      <Footer></Footer>
     </div>
   );
 }
 
 function Layout() {
   return (
-    <div>
-    
+    <Outlet />
 
-      <Outlet />
-    </div>
-  );
+  )
 }
 
-function Home() {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
-
-function Courses() {
-  return (
-    <div>
-      <h2>Courses</h2>
-      <Outlet />
-    </div>
-  );
-}
-
-function CoursesIndex() {
-  return (
-    <div>
-      <p>Please choose a course:</p>
-
-      <nav>
-        <ul>
-          <li>
-            <Link to="react-fundamentals">React Fundamentals</Link>
-          </li>
-          <li>
-            <Link to="advanced-react">Advanced React</Link>
-          </li>
-          <li>
-            <Link to="react-router">React Router</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
-}
-
-function Course() {
-  const { id } = useParams<"id">();
-
-  return (
-    <div>
-      <h2>
-        Welcome to the {id!.split("-").map(capitalizeString).join(" ")} course!
-      </h2>
-
-      <p>This is a great course. You're gonna love it!</p>
-
-      <Link to="/courses">See all courses</Link>
-    </div>
-  );
-}
-
-function capitalizeString(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
 
 function NoMatch() {
   return (

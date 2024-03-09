@@ -7,6 +7,8 @@
   --nav-element-hoverColor : #eca1a1;
   --footer-element-grey : #6a6a6a;
   --footer-element-color : #ffffff;
+  height: 100%;
+  
 }
 a {
   font-weight: 500;
@@ -19,9 +21,11 @@ a:hover {
 
 body {
   width: 100%;
-  margin: 0; /* Убираем отступы по вертикали */
+  margin: 0;
   padding: 0;
   height: 100%;
+
+
 
  
 }

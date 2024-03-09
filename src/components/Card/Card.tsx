@@ -1,14 +1,16 @@
 import classes from './Card.module.css'
-
+import { Link } from 'react-router-dom';
 interface CardProps {  
     imageUrl: string; 
     name: string; 
     description: string;   
+    id : number; 
 }
 
 
 
 const Card: React.FC<CardProps> = (props) => {
+    
     return (
 
        <div className={classes.card}>
@@ -16,13 +18,13 @@ const Card: React.FC<CardProps> = (props) => {
         <div className={classes.photo}>
         <img src={props.imageUrl}/>
         <div className={classes.description}>
-            <div className={classes.heroName}>{props.name}</div>
+            <div className={classes.heroName}> <Link to= {"/characters/" + props.id}>{props.name}</Link></div>
             <div className={classes.about}>{props.description}</div>    
         
         
         </div> 
  
- 
+  
 
        </div>
        </div>
