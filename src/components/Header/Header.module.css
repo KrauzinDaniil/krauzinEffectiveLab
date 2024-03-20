@@ -33,7 +33,7 @@ nav>div {
     color: var(--nav-element-color);
 }
 
-.lined {
+.active {
     text-decoration: underline;
     font-weight: bold;
 }
@@ -42,6 +42,3 @@ nav>div {
     font-weight: 100;
 }
 
-.nolined {
-    font-weight: bold;
-}

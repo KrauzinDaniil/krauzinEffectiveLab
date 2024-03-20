@@ -45,9 +45,7 @@ const VisualHeros: React.FC<ListData> = (props) => {
 const Description: React.FC<CardArray> = ({ cards }) => {
 
     const { id } = useParams();
-    const realdId: number = (id as unknown as number);
-    console.log(cards);
-    console.log(realdId)
+    const realdId: number = Number(id);
     return (
         <div>
             <VisualHeros name={cards[realdId].name} imageUrl={cards[realdId].imageUrl} description={cards[realdId].description}
