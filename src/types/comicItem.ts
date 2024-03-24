@@ -1,5 +1,13 @@
-export interface ComicItem {
-   
-    id: number;
-    title: string;
+export interface InnerList {
+
+     items: itemData[]
   }
+
+
+
+
+interface itemData { 
+      resourceURI: string 
+      name: string 
+
+}  

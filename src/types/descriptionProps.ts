@@ -1,13 +1,15 @@
+import { InnerList } from "./comicItem"
+
 export interface descriptionProps  {
-    id: number  | undefined;
-    name: string | undefined;
-    isChar: boolean | undefined;
-    description: string | undefined;
+    id: number  
+    name: string
+    isChar: boolean 
+    description: string 
     thumbnail: {
-        path: string | undefined;
-        extension: string | undefined;
-    } | undefined;
-  
+        path: string 
+        extension: string 
+    } 
+    dataList: InnerList
 
 
 }

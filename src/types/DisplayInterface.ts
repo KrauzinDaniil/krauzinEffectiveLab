@@ -1,15 +1,14 @@
-import { InnerList } from "./comicItem";
 
-export interface Comics {
+export interface DisplayInterface  { 
     id: number;
-    title: string;
+    name: string;
     isChar: boolean;
     description: string;
     thumbnail: {
         path: string;
         extension: string;
     };
-    characters: InnerList
+   
   
-  }
-  
+   
+}

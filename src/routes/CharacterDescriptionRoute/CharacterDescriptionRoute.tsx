@@ -18,7 +18,7 @@ const CharacterDescriptionRoute: React.FC = () => {
     <div>
       {loading ? "Loading..." : null}
 
-      <Description  id = {character?.id} name={character?.name} isChar = {true} description= {character?.description} thumbnail={character?.thumbnail}/>
+      <Description description={ character}/>
 
     </div>
   );

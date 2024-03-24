@@ -4,17 +4,17 @@ import { observable, action, makeObservable, runInAction } from "mobx";
 import api from "../api";
 
 // Types
-import { Character } from "../types/character";
-
+import { DisplayInterface } from "../types/DisplayInterface";
+import { descriptionProps } from "../types/descriptionProps";
 class CharacterStore {
   @observable
-  characters: Character[] = [];
+  characters: DisplayInterface[] = [];
 
   @observable
   loading: boolean = false;
 
   @observable
-  character: Character | undefined; 
+  character: descriptionProps = {id: 0, name:"", isChar:true, description:"", thumbnail: { path:"", extension: ""}, dataList: { items:[] } }
 
   constructor() {
     makeObservable(this);
@@ -39,8 +39,43 @@ class CharacterStore {
               .concat(item.thumbnail.extension),
             extension: item.thumbnail.extension,
           },
-          comics: [],
+    
         }));
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
+
+  @action
+  getPostsListWithOffset = async (offset: number): Promise<void> => {
+    try {
+      this.loading = true;
+
+      const characters = await api.characters.getCharacterListWithOffset(offset);
+
+      runInAction(() => {
+        let memoChar: DisplayInterface[] = []
+        memoChar = characters.map((item) => ({
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          isChar: true,
+          thumbnail: {
+            path: item.thumbnail.path
+              .concat("/landscape_incredible.")
+              .concat(item.thumbnail.extension),
+            extension: item.thumbnail.extension,
+          },
+    
+        }));
+
+        this.characters.push(...memoChar)
+      
       });
     } catch (error) {
       console.error(error);
@@ -61,10 +96,21 @@ class CharacterStore {
       const character = await api.characters.getCharacter(id);
         
       console.log(character)
+      
 
 
       runInAction(() => {
-         this.character = character;
+         this.character.id = character.id
+         this.character.name = character.name 
+         this.character.description = character.description 
+         this.character.thumbnail = character.thumbnail
+         this.character.dataList.items = character.comics.items.map((item) => ( { 
+          
+            resourceURI: item.resourceURI,
+            name: item.name
+
+         }))
+        
        
           
       });

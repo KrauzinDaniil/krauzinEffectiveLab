@@ -17,7 +17,7 @@ const ComicsRoute: React.FC = () => {
            <div>
    
               {loading ? 'Loading...' : null}
-              <Display character={comics}/>
+              <Display display={comics}/>
         
 
 

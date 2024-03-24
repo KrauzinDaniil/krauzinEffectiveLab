@@ -1,4 +1,4 @@
-import { ComicItem } from "./comicItem";
+import { InnerList } from "./comicItem";
 
 export interface Character {
   id: number;
@@ -9,6 +9,7 @@ export interface Character {
       path: string;
       extension: string;
   };
+  comics: InnerList
 
-  comics: ComicItem[]; 
+
 }

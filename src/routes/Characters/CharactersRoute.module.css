@@ -1,0 +1,16 @@
+.buttonPanel {  
+    margin-top: 3%;
+    background-color: rgb(231, 231, 211);
+    height: 30px;
+    display: flex;
+    justify-content: center;
+}  
+.cell  { 
+    border: 2px solid black;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

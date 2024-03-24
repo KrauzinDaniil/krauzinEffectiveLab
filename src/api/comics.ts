@@ -2,15 +2,7 @@ import axios from './helpers/axios';
 import CryptoJS from 'crypto-js'
 import { Comics } from '../types/comics';
 import { ComicsPromise } from '../types/comicsPromise';
-/*   /* <div className={classes.label}> {props.isChar ? "Comics" : "Heroes "}
-                    {props.contentList.map((item, index) => (
-                        <Link to={props.isCharacter ? "/comics/" + item.id : "/characters/" + item.id}>  <div key={index} className={classes.listElem}>{item.name}</div> </Link>
-                    ))}
 
-
-
-
-                </div>*/
 
 export default {
     async getComicsList(): Promise<ComicsPromise[]> {
@@ -37,7 +29,7 @@ export default {
           hash: CryptoJS.MD5(ts.concat("3c423dce80b2b66cc204f0e99382177edd78a150").concat(apiKey))
         }
     });
-      console.log(response.data)
-      return response.data;
+  
+      return response.data.data.results[0];
     }
   };

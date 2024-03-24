@@ -1,15 +1,14 @@
 import classes from "./DisplayList.module.css";
 import Search from "./Search/Search";
 import Card from "../Card/Card";
-import { Character } from "../../types/character";
-
-const DisplayList: React.FC<{ character: Character[] } > = ({character}) => {
+import { DisplayInterface } from "../../types/DisplayInterface";
+const DisplayList: React.FC<{display :  DisplayInterface[]}> = ( {display}) => {
   return ( 
     <main className={classes.main}>
-      <Search amount={character.length} type={true}></Search>
+      <Search amount={display.length} type={true}></Search>
       <div className={classes.divider}></div>
       <div className={classes.list}>
-        {character.map((item) => (
+        {display.map((item) => (
           <Card
             key={item.id}
             imageUrl={item.thumbnail?.path}
@@ -20,6 +19,8 @@ const DisplayList: React.FC<{ character: Character[] } > = ({character}) => {
           />
         ))}
       </div>
+
+      <div className={classes.divider}></div>
     </main>
   );
 };

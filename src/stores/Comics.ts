@@ -4,14 +4,15 @@ import { observable, action, makeObservable, runInAction } from "mobx";
 import api from "../api";
 
 // Types
-import { Comics } from "../types/comics";
+import { descriptionProps } from "../types/descriptionProps";
+import { DisplayInterface } from "../types/DisplayInterface";
 
 class ComicsStore {
   @observable
-  comics: Comics[] = [];
+  comics: DisplayInterface[] = [];
 
   @observable 
-  comic: Comics | undefined;
+  comic: descriptionProps = {id: 0, name:"", isChar:false, description:"", thumbnail: { path:"", extension: ""}, dataList: { items:[] } }
 
   @observable
   loading: boolean = false;
@@ -39,7 +40,7 @@ class ComicsStore {
               .concat(item.thumbnail.extension),
             extension: item.thumbnail.extension,
           },
-          comics: []
+          comicsList: []
         }));
       });
     } catch (error) {
@@ -62,8 +63,17 @@ class ComicsStore {
 
 
       runInAction(() => {
-         this.comic = comic;
-      });
+         this.comic.id = comic.id;
+         this.comic.name = comic.title
+         this.comic.description = comic.description
+         this.comic.thumbnail = comic.thumbnail
+
+         this.comic.dataList.items = comic.characters.items.map((item) => ( { 
+          resourceURI: item.resourceURI,
+          name: item.name
+
+       }))
+        });
     } catch (error) {
       console.error(error);
     } finally {
