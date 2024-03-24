@@ -1,18 +1,27 @@
 import React from "react";
 import Display from "../../components/Display";
-import { comicsCards } from "../../components/Storage(Mock)/Data";
-
+import { observer } from 'mobx-react-lite';
+import comicsStore from '../../stores/Comics';
+import { useEffect } from "react";
 
 const ComicsRoute: React.FC = () => {
   
+       const { comics, loading } = comicsStore;
+       
+       useEffect(() => {
+              comicsStore.getComicsList();
+            }, []);
+
+
        return (
-
-
-        <Display cards={comicsCards}/>
+           <div>
+   
+              {loading ? 'Loading...' : null}
+              <Display character={comics}/>
         
 
 
-
+              </div>
          )
   
   
@@ -21,4 +30,4 @@ const ComicsRoute: React.FC = () => {
   
   }
   
-  export default ComicsRoute;
+  export default observer(ComicsRoute);

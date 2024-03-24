@@ -1,11 +1,11 @@
 import classes from './Card.module.css'
 import { Link } from 'react-router-dom';
 interface CardProps {
-    imageUrl: string;
-    name: string;
-    description: string;
-    id: number;
-    isHero: boolean
+    imageUrl: string | undefined;
+    name: string | undefined;
+    description: string| undefined;
+    id: number | undefined;
+    isHero: boolean | undefined
 }
 
 

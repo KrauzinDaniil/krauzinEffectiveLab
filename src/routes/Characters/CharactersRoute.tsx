@@ -1,24 +1,20 @@
-import React from "react";
+import { useEffect, FC } from "react";
+import { observer } from "mobx-react-lite";
 import Display from "../../components/Display";
-import { heroesCards } from "../../components/Storage(Mock)/Data";
+import characterStore from "../../stores/Characters";
 
+const CharactersRoute: FC = () => {
+  const { characters, loading } = characterStore;
 
-const CharactersRoute: React.FC = () => {
-  
-       return (
+  useEffect(() => {
+    characterStore.getPostsList();
+  }, []);
 
+  return (
+    <div>
+      <Display character =  {characters} />
+    </div>
+  );
+};
 
-        <Display cards={heroesCards}/>
-        
-
-
-
-         )
-  
-  
-  
-  
-  
-  }
-  
-  export default CharactersRoute;
+export default observer(CharactersRoute);
