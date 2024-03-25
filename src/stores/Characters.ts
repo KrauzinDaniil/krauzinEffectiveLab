@@ -21,13 +21,14 @@ class CharacterStore {
   }
 
   @action
-  getPostsList = async (): Promise<void> => {
+  getPostsList = async (startsWith: string): Promise<void> => {
     try {
       this.loading = true;
 
-      const characters = await api.characters.getCharacterList();
+      const characters = await api.characters.getCharacterList(startsWith);
 
       runInAction(() => {
+        this.characters = [];
         this.characters = characters.map((item) => ({
           id: item.id,
           name: item.name,
@@ -51,12 +52,14 @@ class CharacterStore {
     }
   };
 
+
+
   @action
-  getPostsListWithOffset = async (offset: number): Promise<void> => {
+  getPostsListWithOffset = async (offset: number, limit: number, startsWith: string): Promise<void> => {
     try {
       this.loading = true;
 
-      const characters = await api.characters.getCharacterListWithOffset(offset);
+      const characters = await api.characters.getCharacterListWithOffset(offset, limit, startsWith);
 
       runInAction(() => {
         let memoChar: DisplayInterface[] = []
@@ -95,7 +98,7 @@ class CharacterStore {
 
       const character = await api.characters.getCharacter(id);
         
-      console.log(character)
+     
       
 
 

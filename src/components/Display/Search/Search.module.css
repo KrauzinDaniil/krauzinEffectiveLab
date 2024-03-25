@@ -25,17 +25,20 @@
 
 
 .form {
-    width: 82.5%;
+    width: 100%;
+    display: flex;
+    border-color: aqua;
 }
 
 .wrapperSearch {
-    width: 100%;
+   
     display: flex;
     justify-content: space-between;
 }
 
 .search {
-    width: 15%;
+    margin-left: 2%;
+    width: 18%;
     color: white;
     background-color: var(--button-element-color);
     border: none;

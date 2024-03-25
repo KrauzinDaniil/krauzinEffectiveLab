@@ -13,4 +13,19 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-size: 20px;
+    color: red;
+    background-color: rgb(255, 255, 255);
+}
+.cellActive { 
+    border: 2px solid black;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 238, 0);
 }

@@ -22,13 +22,14 @@ class ComicsStore {
   }
 
   @action
-  getComicsList = async (): Promise<void> => {
+  getComicsList = async (startsWith: string): Promise<void> => {
     try {
       this.loading = true;
 
-      const comics = await api.comics.getComicsList();
+      const comics = await api.comics.getComicsList(startsWith);
 
       runInAction(() => {
+        this.comics = []
         this.comics = comics.map((item) => ({
           id: item.id,
           name: item.title,
@@ -51,7 +52,38 @@ class ComicsStore {
       });
     }
   };
+  @action
+  getComicsListWithOffset = async (offset: number, limit: number, startsWith:string): Promise<void> => {
+    try {
+      this.loading = true;
 
+      const comics = await api.comics.getComicsListWithOffset(offset, limit, startsWith);
+
+      runInAction(() => {
+        let memoChar: DisplayInterface[] = []
+        memoChar = comics.map((item) => ({
+          id: item.id,
+          name: item.title,
+          description: item.description,
+          isChar: false,
+          thumbnail: {
+            path: item.thumbnail.path
+              .concat("/landscape_incredible.")
+              .concat(item.thumbnail.extension),
+            extension: item.thumbnail.extension,
+          },
+    
+        }));
+        this.comics.push(...memoChar)
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
 
 
   @action

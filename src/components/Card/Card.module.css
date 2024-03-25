@@ -16,6 +16,7 @@
 .description {
     height: 100px;
     padding: 3%;
+    overflow: hidden;
 
     
 }
