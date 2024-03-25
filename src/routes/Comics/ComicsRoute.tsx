@@ -5,6 +5,10 @@ import comicsStore from "../../stores/Comics";
 import { useEffect, useState } from "react";
 import classes from "./ComicsRoute.module.css";
 import { useDebounce } from "../../components/Hooks/debounce";
+import { AiOutlineDoubleRight } from "react-icons/ai";
+import { AiOutlineDoubleLeft } from "react-icons/ai";
+import { AiOutlineLeft } from "react-icons/ai";
+import { AiOutlineRight } from "react-icons/ai";
 
 
 
@@ -61,68 +65,70 @@ const ComicsRoute: React.FC = () => {
 
   return (
     <div>
-      {loading ? "Loading..." : null}
-      <Display
-        display={comics.slice((currentPage - 1) * 20, currentPage * 20)} type = {false} onSetSearch={setSearch}
-      />
-
-      <div className={classes.buttonPanel}>
-        <div
-          className={classes.buttonNextBackwards}
-          onClick={() => {
-            setHighBorder(highBorder - 5);
-            setLowBorder(lowBorder - 5);
-            setCurrPage(highBorder - 5);
-          }}
-        >
-    
-          {lowBorder > 5 ? "<" : ""}{" "}
-        </div>
-
-        <div
-          className={classes.buttonPrev}
-          onClick={() => {
-            setHighBorder(highBorder - 1);
-            setLowBorder(lowBorder - 1);
-          }}
-        >
-          {lowBorder === 1 ? "" : "+"}
-        </div>
-        {comp}
-        <div
-          className={classes.buttonNext}
-          onClick={() => {
-            if (highBorder === pageAmount) {
-              loadAdditionalPage(pageAmount * 20, 20);
-              setPageNumbe(pageAmount + 1);
-            }
-            setHighBorder(highBorder + 1);
-            setLowBorder(lowBorder + 1);
-            setCurrPage(pageAmount);
-          }}
-        >
-          +
-        </div>
-
-        <div
-          className={classes.buttonNextFuther}
-          onClick={() => {
-            const newHighBorder = highBorder + 5;
-
-            if (newHighBorder > pageAmount) {
-              loadAdditionalPage(pageAmount * 20 + 100, 100);
-              setPageNumbe(pageAmount + 5);
-              setHighBorder(pageAmount);
-              setLowBorder(pageAmount - 5);
-            }
-            setHighBorder(highBorder + 5);
-            setLowBorder(lowBorder + 5);
-          }}
-        >
       
-          -
+      <Display
+        display={comics.slice((currentPage - 1) * 20, currentPage * 20)} type = {false} onSetSearch={setSearch} loading = {loading}
+      />
+       {!loading && (
+        <div className={classes.buttonPanel}>
+          <div
+            className={classes.navButton}
+            onClick={() => {
+              if (lowBorder > 5) {
+                setHighBorder(highBorder - 5);
+                setLowBorder(lowBorder - 5);
+                setCurrPage(highBorder - 5);
+              }
+            }}
+          >
+            {lowBorder > 5 ? <AiOutlineDoubleLeft /> : ""}
+          </div>
+
+          <div
+            className={classes.navButton}
+            onClick={() => {
+              if (lowBorder !== 1) {
+                setHighBorder(highBorder - 1);
+                setLowBorder(lowBorder - 1);
+              }
+            }}
+          >
+            {lowBorder === 1 ? "" : <AiOutlineLeft />}
+          </div>
+
+          {loading ? "" : comp}
+
+          <div
+            className={classes.navButton}
+            onClick={() => {
+              if (highBorder === pageAmount) {
+                loadAdditionalPage(pageAmount * 20, 20);
+                setPageNumbe(pageAmount + 1);
+              }
+              setHighBorder(highBorder + 1);
+              setLowBorder(lowBorder + 1);
+              setCurrPage(pageAmount);
+            }}
+          >
+            <AiOutlineRight />
+          </div>
+
+          <div
+            className={classes.navButton}
+            onClick={() => {
+              if (highBorder + 5 > pageAmount) {
+                loadAdditionalPage(pageAmount * 20 + 100, 100);
+                setPageNumbe(pageAmount + 5);
+              }
+
+              setHighBorder(highBorder + 5);
+              setLowBorder(lowBorder + 5);
+            }}
+          >
+            <AiOutlineDoubleRight />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

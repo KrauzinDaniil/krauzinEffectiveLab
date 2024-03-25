@@ -1,8 +1,8 @@
 main {
 
- 
+
     margin-left: 2%;
-    
+
 
 
 }
@@ -20,4 +20,17 @@ main {
     flex-wrap: wrap;
 
     width: 100%;
+}
+
+.loadingImage {
+    margin-top: 10%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.loadingLabel {
+    font-size: 40px;
 }

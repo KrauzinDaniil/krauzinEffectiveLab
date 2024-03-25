@@ -21,7 +21,7 @@ class CharacterStore {
   }
 
   @action
-  getPostsList = async (startsWith: string): Promise<void> => {
+  getCharacterList = async (startsWith: string): Promise<void> => {
     try {
       this.loading = true;
 
@@ -55,7 +55,7 @@ class CharacterStore {
 
 
   @action
-  getPostsListWithOffset = async (offset: number, limit: number, startsWith: string): Promise<void> => {
+  getCharacterListWithOffset = async (offset: number, limit: number, startsWith: string): Promise<void> => {
     try {
       this.loading = true;
 
