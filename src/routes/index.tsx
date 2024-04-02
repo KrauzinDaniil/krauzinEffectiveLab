@@ -1,11 +1,12 @@
 import {  useRoutes } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
-import { heroesCards, comicsCards } from '../components/Storage(Mock)/Data';
 import LayoutRoute from './Layout/LayoutRoute'
 import ComicsRoute from "./Comics/ComicsRoute";
 import CharactersRoute from "./Characters/CharactersRoute";
-import DescriptionRoute from "./Description/DescriptionRoute";
+import ComicsDescriptionRoute from "./ComicsDescription/ComicsDescriptionRoute";
 import NoMatch from "./NoMatch/NoMatch";
+import CharacterDescriptionRoute from "./CharacterDescriptionRoute/CharacterDescriptionRoute";
+import './route.css'
 
 const Routing: React.FC = () => { 
 
@@ -16,11 +17,11 @@ const routes: RouteObject[] = [
         path: "/characters",
         element:<CharactersRoute/>,
       },
-      { path: "/characters/:id", element: <DescriptionRoute cards={heroesCards} /> },
+      { path: "/characters/:id", element: <CharacterDescriptionRoute /> },
 
       { path: "/comics", element:  <ComicsRoute/> },
 
-      { path: "/comics/:id", element: <DescriptionRoute cards={comicsCards} /> },
+      { path: "/comics/:id", element: <ComicsDescriptionRoute /> },
 
       { path: "*", element: <NoMatch /> },
 
@@ -33,7 +34,7 @@ const routes: RouteObject[] = [
 
   return ( 
 
-    <div>
+    <div className="wrappa">
         
        {element}
         
