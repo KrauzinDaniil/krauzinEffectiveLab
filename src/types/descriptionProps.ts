@@ -1,6 +1,6 @@
 import { InnerList } from "./comicItem"
 
-export interface descriptionProps  {
+export interface DescriptionProps  {
     id: number  
     name: string
     isChar: boolean 

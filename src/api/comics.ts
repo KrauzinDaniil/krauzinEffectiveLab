@@ -5,70 +5,47 @@ import { ComicsPromise } from "../types/comicsPromise";
 import envs from "../config/enviroments";
 
 export default {
-  async getComicsList(startsWith: string): Promise<ComicsPromise[]> {
-    const ts = new Date().getTime.toString();
-    let response;
-    if (startsWith === "") {
-      response = await axios.get("/v1/public/comics", {
-        params: {
-          ts: ts,
-          hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
-          limit: 100,
-        },
-      });
-    } else {
-      response = await axios.get("/v1/public/comics", {
-        params: {
-          ts: ts,
+  async getComicsList(startsWith: string): Promise<ComicsPromise> {
+    const ts = Date.now().toString();
 
-          hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
-          limit: 100,
-          nameStartsWith: startsWith,
-        },
-      });
-    }
-    return response.data.data.results;
+    const response = await axios.get("/v1/public/comics", {
+      params: {
+        ts: ts,
+        hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
+        limit: 25,
+        titleStartsWith: startsWith ? startsWith : undefined,
+      },
+    });
+
+    
+    return response.data.data;
   },
 
   async getComicsListWithOffset(
     offset: number,
-    limit: number,
     startsWith: string
-  ): Promise<ComicsPromise[]> {
-    const ts = new Date().getTime.toString();
+  ): Promise<ComicsPromise> {
+    const ts = Date.now().toString();
 
-    let response;
-    if (startsWith === "") {
-      response = await axios.get("/v1/public/comics", {
-        params: {
-          ts: ts,
+    const response = await axios.get("/v1/public/comics", {
+      params: {
+        ts: ts,
+        hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
+        limit: 25,
+        offset: offset,
+        titleStartsWith: startsWith ? startsWith : undefined,
+      },
+    });
 
-          hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
-          limit: limit,
-          offset: offset,
-        },
-      });
-    } else {
-      response = await axios.get("/v1/public/comics", {
-        params: {
-          ts: ts,
-
-          hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
-          limit: limit,
-          offset: offset,
-          nameStartsWith: startsWith,
-        },
-      });
-    }
-    return response.data.data.results;
+    return response.data.data;
   },
+
   async getComic(postId: number): Promise<Comics> {
-    const ts = new Date().getTime.toString();
+    const ts = Date.now().toString();
 
     const response = await axios.get(`/v1/public/comics/${postId}`, {
       params: {
         ts: ts,
-
         hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
       },
     });

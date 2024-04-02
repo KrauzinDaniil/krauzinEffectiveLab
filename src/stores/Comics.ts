@@ -1,10 +1,10 @@
-import { observable, action, makeObservable, runInAction } from "mobx";
+import { observable, action, makeObservable, runInAction, computed } from "mobx";
 
 // API
 import api from "../api";
 
 // Types
-import { descriptionProps } from "../types/descriptionProps";
+import { DescriptionProps } from "../types/descriptionProps";
 import { DisplayInterface } from "../types/DisplayInterface";
 
 class ComicsStore {
@@ -12,14 +12,30 @@ class ComicsStore {
   comics: DisplayInterface[] = [];
 
   @observable 
-  comic: descriptionProps = {id: 0, name:"", isChar:false, description:"", thumbnail: { path:"", extension: ""}, dataList: { items:[] } }
+  comic: DescriptionProps | null = null;
 
   @observable
   loading: boolean = false;
 
+  @observable
+  totalComics: number = 0;
+
+  @observable
+  currentPage: number = 1;  
+
   constructor() {
     makeObservable(this);
   }
+  
+  
+
+  @computed 
+  get totalPageNumber():number { 
+       return Math.ceil(this.totalComics / 25) 
+  }  
+ 
+
+
 
   @action
   getComicsList = async (startsWith: string): Promise<void> => {
@@ -29,8 +45,9 @@ class ComicsStore {
       const comics = await api.comics.getComicsList(startsWith);
 
       runInAction(() => {
+      
         this.comics = []
-        this.comics = comics.map((item) => ({
+        this.comics = comics.results.map((item) => ({
           id: item.id,
           name: item.title,
           description: item.description,
@@ -42,7 +59,10 @@ class ComicsStore {
             extension: item.thumbnail.extension,
           },
           comicsList: []
-        }));
+        }))
+        this.currentPage = 1;
+        this.totalComics = comics.total;
+        
       });
     } catch (error) {
       console.error(error);
@@ -53,15 +73,17 @@ class ComicsStore {
     }
   };
   @action
-  getComicsListWithOffset = async (offset: number, limit: number, startsWith:string): Promise<void> => {
+  getComicsListWithOffset = async (offset: number,startsWith:string): Promise<void> => {
     try {
       this.loading = true;
 
-      const comics = await api.comics.getComicsListWithOffset(offset, limit, startsWith);
+      const comics = await api.comics.getComicsListWithOffset(offset, startsWith);
 
       runInAction(() => {
+        this.currentPage = offset / 25 + 1;
+        this.comics = []
         let memoChar: DisplayInterface[] = []
-        memoChar = comics.map((item) => ({
+        memoChar = comics.results.map((item) => ({
           id: item.id,
           name: item.title,
           description: item.description,
@@ -74,7 +96,8 @@ class ComicsStore {
           },
     
         }));
-        this.comics.push(...memoChar)
+        this.totalComics = comics.total;
+        this.comics.push(...memoChar);
       });
     } catch (error) {
       console.error(error);
@@ -95,17 +118,19 @@ class ComicsStore {
 
 
       runInAction(() => {
-         this.comic.id = comic.id;
-         this.comic.name = comic.title
-         this.comic.description = comic.description
-         this.comic.thumbnail = comic.thumbnail
-
-         this.comic.dataList.items = comic.characters.items.map((item) => ( { 
+        this.comic = {
+          id: comic.id,
+          name: comic.title,
+          description: comic.description,
+          thumbnail: comic.thumbnail,
+          isChar: false,
+          dataList: { items: [] },
+        };
+        this.comic.dataList.items = comic.characters.items.map((item) => ({
           resourceURI: item.resourceURI,
-          name: item.name
-
-       }))
-        });
+          name: item.name,
+        }));
+      });
     } catch (error) {
       console.error(error);
     } finally {

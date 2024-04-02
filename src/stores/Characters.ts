@@ -1,11 +1,11 @@
-import { observable, action, makeObservable, runInAction } from "mobx";
+import { observable, action, makeObservable, runInAction, computed } from "mobx";
 
 // API
 import api from "../api";
 
 // Types
 import { DisplayInterface } from "../types/DisplayInterface";
-import { descriptionProps } from "../types/descriptionProps";
+import { DescriptionProps } from "../types/descriptionProps";
 class CharacterStore {
   @observable
   characters: DisplayInterface[] = [];
@@ -14,7 +14,19 @@ class CharacterStore {
   loading: boolean = false;
 
   @observable
-  character: descriptionProps = {id: 0, name:"", isChar:true, description:"", thumbnail: { path:"", extension: ""}, dataList: { items:[] } }
+  character: DescriptionProps | null = null
+   
+  @observable
+  totalCharacters: number = 0;
+
+  @observable
+  currentPage: number = 1;  
+
+  @computed 
+  get totalPageNumber():number { 
+       return Math.ceil(this.totalCharacters / 25) 
+  }  
+ 
 
   constructor() {
     makeObservable(this);
@@ -29,7 +41,7 @@ class CharacterStore {
 
       runInAction(() => {
         this.characters = [];
-        this.characters = characters.map((item) => ({
+        this.characters = characters.results.map((item) => ({
           id: item.id,
           name: item.name,
           description: item.description,
@@ -41,7 +53,9 @@ class CharacterStore {
             extension: item.thumbnail.extension,
           },
     
-        }));
+        }))
+        this.currentPage = 1;
+        this.totalCharacters = characters.total;
       });
     } catch (error) {
       console.error(error);
@@ -55,15 +69,17 @@ class CharacterStore {
 
 
   @action
-  getCharacterListWithOffset = async (offset: number, limit: number, startsWith: string): Promise<void> => {
+  getCharacterListWithOffset = async (offset: number, startsWith: string): Promise<void> => {
     try {
       this.loading = true;
 
-      const characters = await api.characters.getCharacterListWithOffset(offset, limit, startsWith);
+      const characters = await api.characters.getCharacterListWithOffset(offset, startsWith);
 
       runInAction(() => {
+        this.currentPage = offset / 25 + 1;
+        this.characters = []
         let memoChar: DisplayInterface[] = []
-        memoChar = characters.map((item) => ({
+        memoChar = characters.results.map((item) => ({
           id: item.id,
           name: item.name,
           description: item.description,
@@ -76,7 +92,7 @@ class CharacterStore {
           },
     
         }));
-
+        this.totalCharacters = characters.total;
         this.characters.push(...memoChar)
       
       });
@@ -98,23 +114,26 @@ class CharacterStore {
 
       const character = await api.characters.getCharacter(id);
         
-     
+      console.log(character)
       
 
 
       runInAction(() => {
-         this.character.id = character.id
-         this.character.name = character.name 
-         this.character.description = character.description 
-         this.character.thumbnail = character.thumbnail
-         this.character.dataList.items = character.comics.items.map((item) => ( { 
-          
-            resourceURI: item.resourceURI,
-            name: item.name
-
-         }))
+        this.character = {
+          id: character.id,
+          name: character.name,
+          description: character.description,
+          thumbnail: character.thumbnail,
+          isChar: true,
+          dataList: { items: [] },
+        };
         
-       
+        this.character.dataList.items = character.comics.items.map((item) => ({
+          resourceURI: item.resourceURI,
+          name: item.name,
+          
+        }))
+      
           
       });
     } catch (error) {

@@ -8,13 +8,14 @@ const DisplayList: React.FC<{
   type: boolean;
   onSetSearch: (value: string) => void;
   loading: boolean;
-}> = ({ display, type, onSetSearch, loading }) => {
+  total:number
+}> = ({ display, type, onSetSearch, loading, total }) => {
   return (
     <main className={classes.main}>
       <Search
-        amount={display.length}
         type={type}
         onSearch={onSetSearch}
+        total = {total}
       ></Search>
 
       {loading ? (

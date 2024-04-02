@@ -1,12 +1,12 @@
 export interface InnerList {
 
-     items: itemData[]
+     items: ItemData[]
   }
 
 
 
 
-interface itemData { 
+interface ItemData { 
       resourceURI: string 
       name: string 
 

@@ -13,34 +13,28 @@ import { AiOutlineRight } from "react-icons/ai";
 const CharactersRoute: FC = () => {
   const { characters, loading } = characterStore;
 
-  const [pageAmount, setPageNumbe] = useState(5);
-
   const [lowBorder, setLowBorder] = useState(1);
 
   const [highBorder, setHighBorder] = useState(5);
 
-  const [currentPage, setCurrentPage] = useState(1);
-
   const [toSearch, setToSearch] = useState("");
 
-  const debounceSearchedItem = useDebounce(toSearch, 2000);
-
-  const setCurrPage = (index: number): void => {
-    setCurrentPage(index);
-  };
-
-  function setSearch(value: string) {
-    setToSearch(value);
+  const debounceSearchedItem = useDebounce(toSearch, 2000); 
+  
+  function setSearch(value: string) { 
+    setToSearch(value)
   }
+
+
 
   const comp = [];
   for (let i = lowBorder; i < highBorder + 1; i++) {
     comp.push(
       <div
         onClick={() => {
-          setCurrPage(i);
+          loadAdditionalPage((i - 1) * 25);
         }}
-        className={i === currentPage ? classes.cellActive : classes.cell}
+        className={i === characterStore.currentPage ? classes.cellActive : classes.cell}
       >
         {i}
       </div>
@@ -51,18 +45,19 @@ const CharactersRoute: FC = () => {
     characterStore.getCharacterList(debounceSearchedItem);
   }, [debounceSearchedItem]);
 
-  function loadAdditionalPage(offset: number, limit: number) {
-    characterStore.getCharacterListWithOffset(offset, limit, toSearch);
+  function loadAdditionalPage(offset: number) {
+    characterStore.getCharacterListWithOffset(offset, toSearch);
   }
 
   return (
     <div>
       <ToastContainer />
       <Display
-        display={characters.slice((currentPage - 1) * 20, currentPage * 20)}
+        display={characters}
         type={true}
         onSetSearch={setSearch}
         loading={loading}
+        total={characterStore.totalCharacters}
       />
 
       {!loading && (
@@ -73,7 +68,7 @@ const CharactersRoute: FC = () => {
               if (lowBorder > 5) {
                 setHighBorder(highBorder - 5);
                 setLowBorder(lowBorder - 5);
-                setCurrPage(highBorder - 5);
+              
               }
             }}
           >
@@ -97,13 +92,12 @@ const CharactersRoute: FC = () => {
           <div
             className={classes.navButton}
             onClick={() => {
-              if (highBorder === pageAmount) {
-                loadAdditionalPage(pageAmount * 20, 20);
-                setPageNumbe(pageAmount + 1);
-              }
-              setHighBorder(highBorder + 1);
-              setLowBorder(lowBorder + 1);
-              setCurrPage(pageAmount);
+              if(highBorder > characterStore.totalPageNumber)  { 
+               return; 
+             }
+             else { setHighBorder(highBorder + 1)
+                    setLowBorder (lowBorder  + 1)  
+                  }
             }}
           >
             <AiOutlineRight />
@@ -112,13 +106,13 @@ const CharactersRoute: FC = () => {
           <div
             className={classes.navButton}
             onClick={() => {
-              if (highBorder + 5 > pageAmount) {
-                loadAdditionalPage(pageAmount * 20 + 100, 100);
-                setPageNumbe(pageAmount + 5);
-              }
-
+              if (highBorder + 5 > characterStore.totalPageNumber && characterStore.totalPageNumber >= 5) {
+                 setHighBorder(characterStore.totalPageNumber)
+                 setLowBorder(characterStore.totalPageNumber - 5)
+              } else if(characterStore.totalPageNumber >= 5) {
               setHighBorder(highBorder + 5);
               setLowBorder(lowBorder + 5);
+              }
             }}
           >
             <AiOutlineDoubleRight />

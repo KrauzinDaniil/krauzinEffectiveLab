@@ -2,10 +2,11 @@ import classes from "./Search.module.css";
 import { ChangeEvent } from "react";
 
 const Search: React.FC<{
-  amount: number;
+
   type: boolean;
   onSearch: (value: string) => void;
-}> = ({ amount, type, onSearch }) => {
+  total:number
+}> = ({ type, onSearch, total }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     onSearch(e.target.value);
   };
@@ -24,7 +25,7 @@ const Search: React.FC<{
         <h1 className={classes.searchLabel}>
           {type === true ? "Сharacters" : "Comics"}
         </h1>{" "}
-        <div className={classes.amount}> ({amount})</div>{" "}
+        <div className={classes.amount}> ({total})</div>{" "}
       </div>
       <div className={classes.wrapperSearch}>
         <form className={classes.form} onSubmit={handleSubmit}>

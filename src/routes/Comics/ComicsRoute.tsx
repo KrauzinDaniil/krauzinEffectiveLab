@@ -16,14 +16,11 @@ import { AiOutlineRight } from "react-icons/ai";
 const ComicsRoute: React.FC = () => {
   const { comics, loading } = comicsStore;
 
-  const [pageAmount, setPageNumbe] = useState(5);
 
   const [lowBorder, setLowBorder] = useState(1);
 
   const [highBorder, setHighBorder] = useState(5);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  
   const [toSearch, setToSearch] = useState("");
 
   const debounceSearchedItem = useDebounce(toSearch, 2000); 
@@ -34,17 +31,17 @@ const ComicsRoute: React.FC = () => {
 
 
 
-  const setCurrPage = (index: number): void => {
-    setCurrentPage(index);
-  };
-  const comp = [];
+  
+
+
+  const totalButtons = [];
   for (let i = lowBorder; i < highBorder + 1; i++) {
-    comp.push(
+    totalButtons.push(
       <div
         onClick={() => {
-          setCurrPage(i);
+          loadAdditionalPage((i - 1) * 25);
         }}
-        className={i === currentPage ? classes.cellActive : classes.cell}
+        className={i === comicsStore.currentPage ? classes.cellActive : classes.cell}
       >
         {i}
       </div>
@@ -57,8 +54,9 @@ const ComicsRoute: React.FC = () => {
     comicsStore.getComicsList(debounceSearchedItem);
   }, [debounceSearchedItem])
 
-  function loadAdditionalPage(offset: number, limit: number) {
-    comicsStore.getComicsListWithOffset(offset, limit, toSearch);
+
+  function loadAdditionalPage(offset: number) {
+    comicsStore.getComicsListWithOffset(offset, toSearch);
   }
 
   
@@ -67,7 +65,7 @@ const ComicsRoute: React.FC = () => {
     <div>
       
       <Display
-        display={comics.slice((currentPage - 1) * 20, currentPage * 20)} type = {false} onSetSearch={setSearch} loading = {loading}
+        display={comics} type = {false} onSetSearch={setSearch} loading = {loading} total={comicsStore.totalComics}
       />
        {!loading && (
         <div className={classes.buttonPanel}>
@@ -77,7 +75,6 @@ const ComicsRoute: React.FC = () => {
               if (lowBorder > 5) {
                 setHighBorder(highBorder - 5);
                 setLowBorder(lowBorder - 5);
-                setCurrPage(highBorder - 5);
               }
             }}
           >
@@ -96,19 +93,20 @@ const ComicsRoute: React.FC = () => {
             {lowBorder === 1 ? "" : <AiOutlineLeft />}
           </div>
 
-          {loading ? "" : comp}
+          {loading ? "" : totalButtons}
 
           <div
             className={classes.navButton}
             onClick={() => {
-              if (highBorder === pageAmount) {
-                loadAdditionalPage(pageAmount * 20, 20);
-                setPageNumbe(pageAmount + 1);
+                 if(highBorder >= comicsStore.totalPageNumber)  { 
+                  return; 
+                }
+                else { setHighBorder(highBorder + 1)
+                       setLowBorder (lowBorder  + 1)  
+                     }
               }
-              setHighBorder(highBorder + 1);
-              setLowBorder(lowBorder + 1);
-              setCurrPage(pageAmount);
-            }}
+          }
+
           >
             <AiOutlineRight />
           </div>
@@ -116,13 +114,14 @@ const ComicsRoute: React.FC = () => {
           <div
             className={classes.navButton}
             onClick={() => {
-              if (highBorder + 5 > pageAmount) {
-                loadAdditionalPage(pageAmount * 20 + 100, 100);
-                setPageNumbe(pageAmount + 5);
-              }
+              if (highBorder + 5 > comicsStore.totalPageNumber && comicsStore.totalPageNumber >= 5) {
+                 setHighBorder(comicsStore.totalPageNumber)
+                 setLowBorder(comicsStore.totalPageNumber - 5)
+              } else  if(comicsStore.totalPageNumber >= 5) {
 
               setHighBorder(highBorder + 5);
               setLowBorder(lowBorder + 5);
+              }
             }}
           >
             <AiOutlineDoubleRight />

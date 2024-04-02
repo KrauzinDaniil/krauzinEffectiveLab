@@ -1,9 +1,9 @@
 import classes from "./Description.module.css";
 
-import { descriptionProps } from "../../types/descriptionProps";
+import { DescriptionProps } from "../../types/descriptionProps";
 import { Link } from "react-router-dom";
 
-const Description: React.FC<{ description: descriptionProps }> = ({
+const Description: React.FC<{ description: DescriptionProps }> = ({
   description,
 }) => {
   return (
