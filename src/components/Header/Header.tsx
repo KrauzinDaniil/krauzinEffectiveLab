@@ -11,7 +11,7 @@ const Header: React.FC = () => {
             {" "}
             <NavLink
               to="/characters"
-              className={({ isActive }) => (isActive ? classes.active : "")}
+              className={({ isActive }) => isActive ? classes.active: ""}
             >
               <a>Characters</a>
             </NavLink>
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
             {" "}
             <NavLink
               to="/comics"
-              className={({ isActive }) => (isActive ? classes.active : "")}
+              className={({ isActive }) => isActive ? classes.active : ""}
             >
               <a>Comics</a>
             </NavLink>
