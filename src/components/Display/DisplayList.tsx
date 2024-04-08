@@ -31,7 +31,7 @@ const DisplayList: React.FC<{
             {display.map((item) => (
               <Card
                 key={item.id}
-                imageUrl={item.thumbnail?.path}
+                thumbnail={item.thumbnail?.path}
                 name={item.name}
                 description={item.description}
                 id={item.id}
