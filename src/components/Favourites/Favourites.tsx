@@ -25,6 +25,8 @@ const Favourites: React.FC<{
                 id={item.id}
                 isHero={item.isChar}
                 changeStorage={changeLocalStorage}
+                isFavourited = {true}
+                dataList={item.data}
               />
             ))}
         </div>

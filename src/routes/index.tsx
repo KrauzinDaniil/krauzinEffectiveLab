@@ -8,6 +8,7 @@ import NoMatch from "./NoMatch/NoMatch";
 import CharacterDescriptionRoute from "./CharacterDescriptionRoute/CharacterDescriptionRoute";
 import './route.css'
 import FavouritesRoute from "./FavouritesRoute/FavouritesRoute";
+import FavouriteDetailsRoute from "./FavouriteDetailsRoute/FavouriteDetailsRoute";
 
 
 const Routing: React.FC = () => { 
@@ -26,6 +27,8 @@ const routes: RouteObject[] = [
       { path: "/comics/:id", element: <ComicsDescriptionRoute /> },
 
       { path: "/favourites", element: <FavouritesRoute/> },
+
+      {path: "/favourites/:id", element:  <FavouriteDetailsRoute/>},
 
       { path: "*", element: <NoMatch /> },
 

@@ -5,6 +5,7 @@ export interface Character {
   name: string;
   isChar: boolean;
   description: string;
+  isFavourited: boolean;
   thumbnail: {
       path: string;
       extension: string;

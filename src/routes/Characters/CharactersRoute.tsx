@@ -83,6 +83,7 @@ const CharactersRoute: FC = () => {
         total={characterStore.totalCharacters}
         changeLocalStorage={changeLocalStorage}
         
+        
       />
 
       {!loading && (

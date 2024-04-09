@@ -5,6 +5,7 @@ export interface Comics {
     title: string;
     isChar: boolean;
     description: string;
+    isFavourited: boolean;
     thumbnail: {
         path: string;
         extension: string;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IoHeart } from "react-icons/io5";
 import { IoHeartOutline } from "react-icons/io5";
 import { useState } from "react";
+import { InnerList } from "../../types/comicItem";
 
 const Card: React.FC<{
   thumbnail: string;
@@ -10,10 +11,12 @@ const Card: React.FC<{
   description: string;
   id: number;
   isHero: boolean;
+  isFavourited: boolean
+  dataList: InnerList
   changeStorage: (key: string, value: string, mode: string) => void;
-}> = ({ thumbnail: thumbnail, name, id, isHero, description, changeStorage }) => {
+}> = ({ thumbnail: thumbnail, name, id, isHero, description, isFavourited, changeStorage, dataList }) => {
   const [showHeart, setShow] = useState(false);
-
+  
   const [chosen, setChosen] = useState(
     changeStorage(id.toString(), "", "check") !== null
   );
@@ -34,7 +37,7 @@ const Card: React.FC<{
           !chosen
               ? (changeStorage(
                     JSON.stringify(id),
-                    JSON.stringify({ thumbnail: { path: thumbnail}, name, description, id, isHero }),
+                    JSON.stringify({ thumbnail: { path: thumbnail}, name, description, id, isHero, dataList }),
                     "add"
                 ),
                 setChosen(!chosen))
@@ -51,7 +54,7 @@ const Card: React.FC<{
           <div>
             {" "}
             <Link
-              to={isHero === true ? "/characters/" + id : "/comics/" + id}
+              to={ !isFavourited ?  isHero === true ? "/characters/" + id : "/comics/" + id : "/favourites/" + id}
               className={classes.heroName}
             >
               {name}

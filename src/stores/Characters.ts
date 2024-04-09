@@ -54,7 +54,8 @@ class CharacterStore {
           },
           data: { 
             items: item.comics.items
-          }
+          },
+          isFavourited: false
     
         }))
         this.currentPage = 1;
@@ -95,7 +96,8 @@ class CharacterStore {
           },
           data: { 
             items: item.comics.items
-          }
+          },
+          isFavourited: false
     
         }));
         this.totalCharacters = characters.total;
@@ -132,8 +134,9 @@ class CharacterStore {
           thumbnail: character.thumbnail,
           isChar: true,
           dataList: { items: [] },
+          isFavourited: false
         };
-        
+          
         this.character.dataList.items = character.comics.items.map((item) => ({
           resourceURI: item.resourceURI,
           name: item.name,
