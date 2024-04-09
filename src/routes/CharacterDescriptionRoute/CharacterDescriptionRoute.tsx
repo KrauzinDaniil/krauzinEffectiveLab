@@ -18,7 +18,7 @@ const CharacterDescriptionRoute: React.FC = () => {
     <div>
       {loading ? "Loading..." : null}
 
-    {  character !== null ? <Description description={character} /> : ""  }
+    {  character !== null ? <Description description={character} isFavourited = {false} /> : ""  }
     </div>
   );
 };

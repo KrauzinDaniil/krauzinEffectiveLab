@@ -26,7 +26,7 @@ const FavouritesRoute: React.FC = () => {
     }
     return null;
   }
-   console.log(toDisplay[0])
+   
   return (
     <div>
       <Favourites display={toDisplay} changeLocalStorage={changeLocalStorage} />
