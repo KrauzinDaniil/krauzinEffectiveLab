@@ -3,25 +3,19 @@ import Favourites from "../../components/Favourites/Favourites";
 import { DisplayInterface } from "../../types/DisplayInterface";
 
 const FavouritesRoute: React.FC = () => {
+  const [toDisplay, setDisplay] = useState<DisplayInterface[]>([]);
 
-   const [toDisplay, setDisplay] = useState<DisplayInterface[]>([]);
-   
-   useEffect(() =>  {
-    const display: DisplayInterface[] = []
+  useEffect(() => {
+    const display: DisplayInterface[] = [];
     localStorage.removeItem("loglevel");
-    for(const key in localStorage) { 
-        const str = localStorage.getItem(key) 
-        if(str !== null) { 
-         display.push(JSON.parse(str))
-        }
-
+    for (const key in localStorage) {
+      const str = localStorage.getItem(key);
+      if (str !== null) {
+        display.push(JSON.parse(str));
+      }
     }
-    setDisplay(display)
-
-
-
-
-   }, [])
+    setDisplay(display);
+  }, []);
 
   function changeLocalStorage(
     key: string,
@@ -41,8 +35,8 @@ const FavouritesRoute: React.FC = () => {
     }
     return null;
   }
-   
-   console.log(toDisplay)
+
+  console.log(toDisplay);
 
   return (
     <div>
