@@ -1,12 +1,11 @@
-import React, { useEffect} from "react";
+import React from "react";
 import { useLocalStorage } from "../../components/Hooks/useLocalStorage";
 import Favourites from "../../components/Favourites/Favourites";
 
-
 const FavouritesRoute: React.FC = () => {
 
-
-  const toDisplay = useLocalStorage();
+   const toDisplay = useLocalStorage();
+   
 
 
   function changeLocalStorage(
@@ -27,11 +26,7 @@ const FavouritesRoute: React.FC = () => {
     }
     return null;
   }
-
-
-
-  useEffect(() => {}, [toDisplay]);
-
+   console.log(toDisplay[0])
   return (
     <div>
       <Favourites display={toDisplay} changeLocalStorage={changeLocalStorage} />

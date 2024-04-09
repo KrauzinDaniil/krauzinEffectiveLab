@@ -5,13 +5,13 @@ import { IoHeartOutline } from "react-icons/io5";
 import { useState } from "react";
 
 const Card: React.FC<{
-  imageUrl: string;
+  thumbnail: string;
   name: string;
   description: string;
   id: number;
   isHero: boolean;
   changeStorage: (key: string, value: string, mode: string) => void;
-}> = ({ imageUrl, name, id, isHero, description, changeStorage }) => {
+}> = ({ thumbnail: thumbnail, name, id, isHero, description, changeStorage }) => {
   const [showHeart, setShow] = useState(false);
 
   const [chosen, setChosen] = useState(
@@ -34,7 +34,7 @@ const Card: React.FC<{
           !chosen
               ? (changeStorage(
                     JSON.stringify(id),
-                    JSON.stringify({ imageUrl, name, description, id, isHero }),
+                    JSON.stringify({ thumbnail: { path: thumbnail}, name, description, id, isHero }),
                     "add"
                 ),
                 setChosen(!chosen))
@@ -46,7 +46,7 @@ const Card: React.FC<{
         { !chosen ? showHeart ? <IoHeartOutline/> : "" : <IoHeart/>  }
       </div>
       <div className={classes.photo}>
-        <img src={imageUrl} />
+        <img src={thumbnail} />
         <div className={classes.description}>
           <div>
             {" "}
