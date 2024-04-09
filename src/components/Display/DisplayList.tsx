@@ -7,9 +7,10 @@ const DisplayList: React.FC<{
   display: DisplayInterface[];
   type: boolean;
   onSetSearch: (value: string) => void;
+  changeLocalStorage: (key: string, value: string, mode:string) => void;
   loading: boolean;
   total:number
-}> = ({ display, type, onSetSearch, loading, total }) => {
+}> = ({ display, type, onSetSearch, loading, total, changeLocalStorage }) => {
   return (
     <main className={classes.main}>
       <Search
@@ -25,6 +26,7 @@ const DisplayList: React.FC<{
         </div>
       ) : (
         <>
+         <div className={classes.divider}></div>
           <div className={classes.list}>
             {display.map((item) => (
               <Card
@@ -34,6 +36,7 @@ const DisplayList: React.FC<{
                 description={item.description}
                 id={item.id}
                 isHero={item.isChar}
+                changeStorage={changeLocalStorage}
               />
             ))}
           </div>

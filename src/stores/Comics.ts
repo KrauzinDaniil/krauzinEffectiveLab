@@ -58,7 +58,9 @@ class ComicsStore {
               .concat(item.thumbnail.extension),
             extension: item.thumbnail.extension,
           },
-          comicsList: []
+          data: { 
+            items: item.characters.items
+          }
         }))
         this.currentPage = 1;
         this.totalComics = comics.total;
@@ -94,6 +96,9 @@ class ComicsStore {
               .concat(item.thumbnail.extension),
             extension: item.thumbnail.extension,
           },
+          data: { 
+            items: item.characters.items
+          }
     
         }));
         this.totalComics = comics.total;

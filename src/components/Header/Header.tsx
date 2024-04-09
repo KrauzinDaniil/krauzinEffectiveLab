@@ -8,7 +8,7 @@ const Header: React.FC = () => {
         <img src="/public/marvel_logo.svg" />
         <nav className={classes.wrapper}>
           <div>
-            {" "}
+           
             <NavLink
               to="/characters"
               className={({ isActive }) => (isActive ? classes.active : "")}
@@ -17,12 +17,22 @@ const Header: React.FC = () => {
             </NavLink>
           </div>
           <div>
-            {" "}
+        
             <NavLink
               to="/comics"
               className={({ isActive }) => (isActive ? classes.active : "")}
             >
               <a>Comics</a>
+            </NavLink>
+          </div>
+
+          <div>
+       
+            <NavLink
+              to="/favourites"
+              className={({ isActive }) => (isActive ? classes.active : "")}
+            >
+              <a>Favourites</a>
             </NavLink>
           </div>
         </nav>

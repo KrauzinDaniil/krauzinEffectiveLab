@@ -25,7 +25,28 @@ const CharactersRoute: FC = () => {
     setToSearch(value)
   }
 
+  function changeLocalStorage(key : string, value : string, mode: string): unknown {
+          switch(mode) {
+          case "add" : 
+          localStorage.setItem(key,value)
+          break;
+          case "delete": 
+          localStorage.removeItem(key)
+          break 
+          case "check" :
+          return localStorage.getItem(key)
+          break
 
+          }
+          return null;
+         
+          
+
+       }
+
+  
+ 
+     
 
   const comp = [];
   for (let i = lowBorder; i < highBorder + 1; i++) {
@@ -43,14 +64,16 @@ const CharactersRoute: FC = () => {
 
   useEffect(() => {
     characterStore.getCharacterList(debounceSearchedItem);
+   
   }, [debounceSearchedItem]);
 
   function loadAdditionalPage(offset: number) {
     characterStore.getCharacterListWithOffset(offset, toSearch);
   }
-
+  
   return (
     <div>
+      
       <ToastContainer />
       <Display
         display={characters}
@@ -58,6 +81,8 @@ const CharactersRoute: FC = () => {
         onSetSearch={setSearch}
         loading={loading}
         total={characterStore.totalCharacters}
+        changeLocalStorage={changeLocalStorage}
+        
       />
 
       {!loading && (

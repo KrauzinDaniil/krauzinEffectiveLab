@@ -21,16 +21,13 @@ span {
 
 nav {
     display: flex;
-    margin-right: 1%;
 
-}
-
-nav :first-child {
-    margin-right: 7%;
+ 
 }
 
 nav>div {
     color: var(--nav-element-color);
+    margin-right: 7px;
 }
 
 .active {

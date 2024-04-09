@@ -1,3 +1,4 @@
+import { InnerList } from "./comicItem";
 
 export interface DisplayInterface  { 
     id: number;
@@ -8,7 +9,7 @@ export interface DisplayInterface  {
         path: string;
         extension: string;
     };
-   
+    data: InnerList
   
    
 }

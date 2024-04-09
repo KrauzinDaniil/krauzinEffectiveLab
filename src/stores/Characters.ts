@@ -52,6 +52,9 @@ class CharacterStore {
               .concat(item.thumbnail.extension),
             extension: item.thumbnail.extension,
           },
+          data: { 
+            items: item.comics.items
+          }
     
         }))
         this.currentPage = 1;
@@ -90,6 +93,9 @@ class CharacterStore {
               .concat(item.thumbnail.extension),
             extension: item.thumbnail.extension,
           },
+          data: { 
+            items: item.comics.items
+          }
     
         }));
         this.totalCharacters = characters.total;
