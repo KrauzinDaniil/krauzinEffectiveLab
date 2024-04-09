@@ -16,6 +16,7 @@ const Favourites: React.FC<{
         <div className={classes.amount}> ({display.length}) </div>
       </div>
       <div className={classes.list}>
+      <div className={classes.divider}></div>
       {display.map((item) => (
               <Card
                 key={item.id}
@@ -30,7 +31,7 @@ const Favourites: React.FC<{
               />
             ))}
         </div>
-      <div className={classes.divider}></div>
+     
     </div>
   );
 };

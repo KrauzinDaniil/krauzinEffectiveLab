@@ -1,12 +1,27 @@
-import React from "react";
-import { useLocalStorage } from "../../components/Hooks/useLocalStorage";
+import React, { useEffect, useState } from "react";
 import Favourites from "../../components/Favourites/Favourites";
+import { DisplayInterface } from "../../types/DisplayInterface";
 
 const FavouritesRoute: React.FC = () => {
 
-   const toDisplay = useLocalStorage();
+   const [toDisplay, setDisplay] = useState<DisplayInterface[]>([]);
    
+   useEffect(() =>  {
+    const display: DisplayInterface[] = []
+    localStorage.removeItem("loglevel");
+    for(const key in localStorage) { 
+        const str = localStorage.getItem(key) 
+        if(str !== null) { 
+         display.push(JSON.parse(str))
+        }
 
+    }
+    setDisplay(display)
+
+
+
+
+   }, [])
 
   function changeLocalStorage(
     key: string,
@@ -27,6 +42,8 @@ const FavouritesRoute: React.FC = () => {
     return null;
   }
    
+   console.log(toDisplay)
+
   return (
     <div>
       <Favourites display={toDisplay} changeLocalStorage={changeLocalStorage} />

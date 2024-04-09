@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 const CharacterDescriptionRoute: React.FC = () => {
-
   const { character, loading } = characterStore;
   const { id } = useParams();
   useEffect(() => {
@@ -18,7 +17,11 @@ const CharacterDescriptionRoute: React.FC = () => {
     <div>
       {loading ? "Loading..." : null}
 
-    {  character !== null ? <Description description={character} isFavourited = {false} /> : ""  }
+      {character !== null ? (
+        <Description description={character} isFavourited={false} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
