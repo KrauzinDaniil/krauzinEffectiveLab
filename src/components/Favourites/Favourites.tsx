@@ -11,10 +11,12 @@ const Favourites: React.FC<{
   changeLocalStorage: (key: string, value: string, mode:string) => void;
 }> = ({ display, changeLocalStorage }) => {
   return (
+    <main>
     <div className={classes.wrapper}>
       <div className={classes.innerWrapper}>
         <h1 className={classes.searchLabel}>Favourites</h1>
         <div className={classes.amount}> ({display.length}) </div>
+      </div>
       </div>
       <div className={classes.divider}></div>
       <VirtuosoGrid
@@ -36,9 +38,9 @@ const Favourites: React.FC<{
           />
         )}
       />
-        </div>
      
-    
+     
+        </main>
   );
 };
 export default Favourites;

@@ -36,7 +36,7 @@ const FavouritesRoute: React.FC = () => {
     return null;
   }
 
-  console.log(toDisplay);
+  
 
   return (
     <div>

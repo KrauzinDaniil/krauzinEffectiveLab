@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 
 
 const ComicsRoute: React.FC = () => {
-  const { comics, loading } = comicsStore;
+  const { comics, loading, initialLoading } = comicsStore;
 
   const [toSearch, setToSearch] = useState("");
 
@@ -46,6 +46,8 @@ const ComicsRoute: React.FC = () => {
     comicsStore.getComicsListWithOffset(toSearch);
   }, [toSearch]);
 
+
+
   return (
     <div>
       <ToastContainer />
@@ -57,6 +59,7 @@ const ComicsRoute: React.FC = () => {
         total={comicsStore.totalComics}
         changeLocalStorage={changeLocalStorage}
         fetchMoreData={fetchMoreData}
+        initialLoading={initialLoading}
       />
 
    

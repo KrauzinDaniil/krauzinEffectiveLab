@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 
 
 const CharactersRoute: FC = () => {
-  const { characters, loading } = characterStore;
+  const { characters, loading, initialLoading } = characterStore;
 
   const [toSearch, setToSearch] = useState("");
 
@@ -37,7 +37,6 @@ const CharactersRoute: FC = () => {
   }
 
 
-   
   useEffect(() => {
     characterStore.getCharacterList(debounceSearchedItem);
   }, [debounceSearchedItem]);
@@ -48,12 +47,12 @@ const CharactersRoute: FC = () => {
  }, [toSearch]); 
 
        
-    
+
 
   return (
     <div>
       <ToastContainer />
-      <Display
+       <Display
         display={characters}
         type={true}
         onSetSearch={setSearch}
@@ -61,7 +60,9 @@ const CharactersRoute: FC = () => {
         total={characterStore.totalCharacters}
         changeLocalStorage={changeLocalStorage}
         fetchMoreData={fetchMoreData}
-      />
+        initialLoading={initialLoading}
+      /> 
+  
 
     
     </div>

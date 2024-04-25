@@ -18,6 +18,9 @@ class ComicsStore {
   loading: boolean = false;
 
   @observable
+  initialLoading: boolean = false;
+
+  @observable
   totalComics: number = 0;
 
   @observable
@@ -40,10 +43,10 @@ class ComicsStore {
   @action
   getComicsList = async (startsWith: string): Promise<void> => {
     try {
-      this.loading = true;
+      this.initialLoading = true;
 
       const comics = await api.comics.getComicsList(startsWith);
-
+      this.loadedAlready = 1; 
       runInAction(() => {
       
         this.comics = []
@@ -71,7 +74,7 @@ class ComicsStore {
       console.error(error);
     } finally {
       runInAction(() => {
-        this.loading = false;
+        this.initialLoading = false;
       });
     }
   };

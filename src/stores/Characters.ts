@@ -14,6 +14,9 @@ class CharacterStore {
   loading: boolean = false;
 
   @observable
+  initialLoading: boolean = false;
+
+  @observable
   character: DescriptionProps | null = null
    
   @observable
@@ -35,10 +38,10 @@ class CharacterStore {
   @action
   getCharacterList = async (startsWith: string): Promise<void> => {
     try {
-      this.loading = true;
+      this.initialLoading = true;
 
       const characters = await api.characters.getCharacterList(startsWith);
-
+      this.loadedAlready = 1; 
       runInAction(() => {
         this.characters = [];
         this.characters = characters.results.map((item) => ({
@@ -65,7 +68,7 @@ class CharacterStore {
       console.error(error);
     } finally {
       runInAction(() => {
-        this.loading = false;
+        this.initialLoading = false;
       });
     }
   };
