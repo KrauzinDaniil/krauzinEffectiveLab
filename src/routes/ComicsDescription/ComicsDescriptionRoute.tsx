@@ -16,7 +16,7 @@ const ComicsDescriptionRoute: React.FC = () => {
     <div>
       {loading ? "Loading..." : null}
 
-     { comic !== null ?  <Description description={comic}/> : "" } 
+     { comic !== null ?  <Description description={comic} isFavourited= {false}/> : "" } 
     </div>
   );
 };

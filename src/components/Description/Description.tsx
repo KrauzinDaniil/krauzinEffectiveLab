@@ -3,15 +3,17 @@ import classes from "./Description.module.css";
 import { DescriptionProps } from "../../types/descriptionProps";
 import { Link } from "react-router-dom";
 
-const Description: React.FC<{ description: DescriptionProps }> = ({
-  description,
+const Description: React.FC<{ description: DescriptionProps, isFavourited: boolean }> = ({
+  description, isFavourited
 }) => {
   return (
     <div className={classes.main}>
       <img
-        src={description.thumbnail?.path
+        src={  
+          !isFavourited ?
+          description.thumbnail?.path
           ?.concat("/detail.")
-          .concat(description.thumbnail.extension.toString())}
+          .concat(description.thumbnail.extension.toString()) : description.thumbnail.path}
         className={classes.photo}
       />
       <div className={classes.wrapper}>
@@ -19,16 +21,20 @@ const Description: React.FC<{ description: DescriptionProps }> = ({
           <div className={classes.name}>{description.name} </div>
           <div className={classes.description}>{description.description} </div>
         </div>
-
+        
         <div className={classes.label}>
           {description.isChar ? "Comics" : "Heroes"}
           {description.dataList.items.map((item, index) => {
             const matchResult = item.resourceURI.match(/\d+/g);
             if (matchResult !== null) {
               const resourceId = matchResult[1];
-              const linkTo = description.isChar
+              const linkTo = 
+              
+              !isFavourited ? 
+              description.isChar
                 ? `/comics/${resourceId}`
-                : `/characters/${resourceId}`;
+                : `/characters/${resourceId}`:  
+                `/favourites/${resourceId}`  ;
               return (
                 <Link to={linkTo} key={index}>
                   <div className={classes.listElem}>{item.name}</div>

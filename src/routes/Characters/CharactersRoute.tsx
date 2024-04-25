@@ -19,13 +19,30 @@ const CharactersRoute: FC = () => {
 
   const [toSearch, setToSearch] = useState("");
 
-  const debounceSearchedItem = useDebounce(toSearch, 2000); 
-  
-  function setSearch(value: string) { 
-    setToSearch(value)
+  const debounceSearchedItem = useDebounce(toSearch, 2000);
+
+  function setSearch(value: string) {
+    setToSearch(value);
   }
 
-
+  function changeLocalStorage(
+    key: string,
+    value: string,
+    mode: string
+  ): unknown {
+    switch (mode) {
+      case "add":
+        localStorage.setItem(key, value);
+        break;
+      case "delete":
+        localStorage.removeItem(key);
+        break;
+      case "check":
+        return localStorage.getItem(key);
+        break;
+    }
+    return null;
+  }
 
   const comp = [];
   for (let i = lowBorder; i < highBorder + 1; i++) {
@@ -34,7 +51,9 @@ const CharactersRoute: FC = () => {
         onClick={() => {
           loadAdditionalPage((i - 1) * 25);
         }}
-        className={i === characterStore.currentPage ? classes.cellActive : classes.cell}
+        className={
+          i === characterStore.currentPage ? classes.cellActive : classes.cell
+        }
       >
         {i}
       </div>
@@ -58,6 +77,7 @@ const CharactersRoute: FC = () => {
         onSetSearch={setSearch}
         loading={loading}
         total={characterStore.totalCharacters}
+        changeLocalStorage={changeLocalStorage}
       />
 
       {!loading && (
@@ -68,7 +88,6 @@ const CharactersRoute: FC = () => {
               if (lowBorder > 5) {
                 setHighBorder(highBorder - 5);
                 setLowBorder(lowBorder - 5);
-              
               }
             }}
           >
@@ -92,12 +111,12 @@ const CharactersRoute: FC = () => {
           <div
             className={classes.navButton}
             onClick={() => {
-              if(highBorder > characterStore.totalPageNumber)  { 
-               return; 
-             }
-             else { setHighBorder(highBorder + 1)
-                    setLowBorder (lowBorder  + 1)  
-                  }
+              if (highBorder > characterStore.totalPageNumber) {
+                return;
+              } else {
+                setHighBorder(highBorder + 1);
+                setLowBorder(lowBorder + 1);
+              }
             }}
           >
             <AiOutlineRight />
@@ -106,12 +125,15 @@ const CharactersRoute: FC = () => {
           <div
             className={classes.navButton}
             onClick={() => {
-              if (highBorder + 5 > characterStore.totalPageNumber && characterStore.totalPageNumber >= 5) {
-                 setHighBorder(characterStore.totalPageNumber)
-                 setLowBorder(characterStore.totalPageNumber - 5)
-              } else if(characterStore.totalPageNumber >= 5) {
-              setHighBorder(highBorder + 5);
-              setLowBorder(lowBorder + 5);
+              if (
+                highBorder + 5 > characterStore.totalPageNumber &&
+                characterStore.totalPageNumber >= 5
+              ) {
+                setHighBorder(characterStore.totalPageNumber);
+                setLowBorder(characterStore.totalPageNumber - 5);
+              } else if (characterStore.totalPageNumber >= 5) {
+                setHighBorder(highBorder + 5);
+                setLowBorder(lowBorder + 5);
               }
             }}
           >

@@ -11,8 +11,6 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 
 
-
-
 const ComicsRoute: React.FC = () => {
   const { comics, loading } = comicsStore;
 
@@ -29,9 +27,23 @@ const ComicsRoute: React.FC = () => {
     setToSearch(value)
   }
 
+  function changeLocalStorage(key : string, value : string, mode: string): unknown {
+    switch(mode) {
+    case "add" : 
+    localStorage.setItem(key,value)
+    break;
+    case "delete": 
+    localStorage.removeItem(key)
+    break 
+    case "check" :
+    return localStorage.getItem(key)
+    break
+
+    }
+    return null;
+ }
 
 
-  
 
 
   const totalButtons = [];
@@ -65,7 +77,7 @@ const ComicsRoute: React.FC = () => {
     <div>
       
       <Display
-        display={comics} type = {false} onSetSearch={setSearch} loading = {loading} total={comicsStore.totalComics}
+        display={comics} type = {false} onSetSearch={setSearch} loading = {loading} total={comicsStore.totalComics}  changeLocalStorage={changeLocalStorage}
       />
        {!loading && (
         <div className={classes.buttonPanel}>

@@ -9,9 +9,10 @@
     width: 15%;
     margin-top: 1%;
     margin-right: 1.5%;
-
-
+    position: relative;
 }
+
+
 
 .description {
     height: 100px;
@@ -38,4 +39,24 @@
     overflow: hidden;
 
 
+}
+
+
+.heart { 
+    position: absolute;
+    right: 7%;
+    top: 5%;
+   
+}
+.heart > :first-child { 
+    height: 150%;
+    width: 150%;
+    color: red;
+ 
+  
+}
+.heart > :first-child:hover { 
+    cursor: pointer;
+ 
+  
 }
