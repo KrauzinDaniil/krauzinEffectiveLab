@@ -77,7 +77,7 @@ class CharacterStore {
     try {
       this.loading = true;
 
-      const characters = await api.characters.getCharacterListWithOffset(this.loadedAlready * 25, startsWith);
+      const characters = await api.characters.getCharacterListWithOffset(this.loadedAlready * 24, startsWith);
 
       this.loadedAlready+=1;
 

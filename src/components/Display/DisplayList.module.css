@@ -17,6 +17,13 @@ main {
 
 }
 
+
+.itemRow {
+    width: 15%;
+    margin-right: 1.6%;
+    margin-top: 1.6%;
+}
+
 .loadingImage {
     margin-top: 10%;
     display: flex;
@@ -27,9 +34,4 @@ main {
 
 .loadingLabel {
     font-size: 40px;
-}
-.itemRow { 
-    width: 15%;
-    margin-right: 1.6%;
-    margin-top: 1.6%;
 }

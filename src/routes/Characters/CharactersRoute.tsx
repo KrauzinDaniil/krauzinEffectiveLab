@@ -1,4 +1,4 @@
-import { useEffect, FC, useState } from "react";
+import { useEffect, FC, useState, useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import Display from "../../components/Display";
 import characterStore from "../../stores/Characters";
@@ -37,15 +37,18 @@ const CharactersRoute: FC = () => {
   }
 
 
-
+   
   useEffect(() => {
     characterStore.getCharacterList(debounceSearchedItem);
   }, [debounceSearchedItem]);
 
+ //возможно слегка оптимизирует загрузку, потому что при прокрутке вниз реакт не пересоздает функцию ???
+ const fetchMoreData = useCallback(() => {
+   characterStore.getCharacterListWithOffset(toSearch);
+ }, [toSearch]); 
 
-  function fetchMoreData(): void  {
-         characterStore.getCharacterListWithOffset(toSearch)
-  }
+       
+    
 
   return (
     <div>
@@ -60,7 +63,7 @@ const CharactersRoute: FC = () => {
         fetchMoreData={fetchMoreData}
       />
 
-      {!loading && (<div></div>)}
+    
     </div>
   );
 };

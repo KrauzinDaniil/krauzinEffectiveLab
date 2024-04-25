@@ -21,7 +21,7 @@ class ComicsStore {
   totalComics: number = 0;
 
   @observable
-  currentPage: number = 1;  
+  loadedAlready: number = 1;  
 
   constructor() {
     makeObservable(this);
@@ -63,7 +63,7 @@ class ComicsStore {
           },
           isFavourited: false
         }))
-        this.currentPage = 1;
+
         this.totalComics = comics.total;
         
       });
@@ -76,15 +76,13 @@ class ComicsStore {
     }
   };
   @action
-  getComicsListWithOffset = async (offset: number,startsWith:string): Promise<void> => {
+  getComicsListWithOffset = async (startsWith:string): Promise<void> => {
     try {
       this.loading = true;
 
-      const comics = await api.comics.getComicsListWithOffset(offset, startsWith);
-
+      const comics = await api.comics.getComicsListWithOffset(this.loadedAlready * 24, startsWith);
+      this.loadedAlready+=1;
       runInAction(() => {
-        this.currentPage = offset / 25 + 1;
-        this.comics = []
         let memoChar: DisplayInterface[] = []
         memoChar = comics.results.map((item) => ({
           id: item.id,

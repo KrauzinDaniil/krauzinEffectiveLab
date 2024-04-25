@@ -11,7 +11,7 @@ export default {
       params: {
         ts: ts,
         hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
-        limit: 25,
+        limit: 24,
         nameStartsWith: startsWith ? startsWith : undefined,
       },
     });
@@ -30,7 +30,7 @@ export default {
       params: {
         ts: ts,
         hash: CryptoJS.MD5(ts.concat(envs.privateKey).concat(envs.apiKey)),
-        limit: 25,
+        limit: 24,
         offset: offset,
         nameStartsWith: startsWith ? startsWith : undefined,
       },

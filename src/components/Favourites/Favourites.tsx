@@ -1,3 +1,4 @@
+import { VirtuosoGrid } from "react-virtuoso";
 import { DisplayInterface } from "../../types/DisplayInterface";
 import Card from "../Card/Card";
 import classes from "./Favourites.module.css";
@@ -15,24 +16,29 @@ const Favourites: React.FC<{
         <h1 className={classes.searchLabel}>Favourites</h1>
         <div className={classes.amount}> ({display.length}) </div>
       </div>
-      <div className={classes.list}>
       <div className={classes.divider}></div>
-      {display.map((item) => (
-              <Card
-                key={item.id}
-                thumbnail={item.thumbnail?.path}
-                name={item.name}
-                description={item.description}
-                id={item.id}
-                isHero={item.isChar}
-                changeStorage={changeLocalStorage}
-                isFavourited = {true}
-                dataList={item.data}
-              />
-            ))}
+      <VirtuosoGrid
+        useWindowScroll={true}
+        data={display}
+        listClassName={classes.rowList}
+        itemClassName={classes.itemRow}
+        itemContent={(_, user) => (
+          <Card
+            key={user.id}
+            thumbnail={user.thumbnail?.path}
+            name={user.name}
+            description={user.description}
+            id={user.id}
+            isHero={user.isChar}
+            changeStorage={changeLocalStorage}
+            isFavourited={false}
+            dataList={user.data}
+          />
+        )}
+      />
         </div>
      
-    </div>
+    
   );
 };
 export default Favourites;
