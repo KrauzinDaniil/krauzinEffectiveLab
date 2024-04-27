@@ -24,7 +24,7 @@ const DisplayList: React.FC<{
   fetchMoreData,
 }) => {
   return (
-    <main className={classes.main}>
+    <main>
       <Search type={type} onSearch={onSetSearch} total={total}></Search>
 
       <div className={classes.divider}></div>
