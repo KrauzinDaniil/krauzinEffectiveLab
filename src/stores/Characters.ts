@@ -14,13 +14,16 @@ class CharacterStore {
   loading: boolean = false;
 
   @observable
+  initialLoading: boolean = false;
+
+  @observable
   character: DescriptionProps | null = null
    
   @observable
   totalCharacters: number = 0;
 
   @observable
-  currentPage: number = 1;  
+  loadedAlready: number = 1;  
 
   @computed 
   get totalPageNumber():number { 
@@ -35,10 +38,10 @@ class CharacterStore {
   @action
   getCharacterList = async (startsWith: string): Promise<void> => {
     try {
-      this.loading = true;
+      this.initialLoading = true;
 
       const characters = await api.characters.getCharacterList(startsWith);
-
+      this.loadedAlready = 1; 
       runInAction(() => {
         this.characters = [];
         this.characters = characters.results.map((item) => ({
@@ -58,14 +61,14 @@ class CharacterStore {
           isFavourited: false
     
         }))
-        this.currentPage = 1;
+        this.loadedAlready = 1;
         this.totalCharacters = characters.total;
       });
     } catch (error) {
       console.error(error);
     } finally {
       runInAction(() => {
-        this.loading = false;
+        this.initialLoading = false;
       });
     }
   };
@@ -73,15 +76,16 @@ class CharacterStore {
 
 
   @action
-  getCharacterListWithOffset = async (offset: number, startsWith: string): Promise<void> => {
+  getCharacterListWithOffset = async (startsWith: string): Promise<void> => {
     try {
       this.loading = true;
 
-      const characters = await api.characters.getCharacterListWithOffset(offset, startsWith);
+      const characters = await api.characters.getCharacterListWithOffset(this.loadedAlready * 24, startsWith);
+
+      this.loadedAlready+=1;
 
       runInAction(() => {
-        this.currentPage = offset / 25 + 1;
-        this.characters = []
+        
         let memoChar: DisplayInterface[] = []
         memoChar = characters.results.map((item) => ({
           id: item.id,
