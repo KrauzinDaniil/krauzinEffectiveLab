@@ -38,9 +38,13 @@ const routes: RouteObject[] = [
 
   const element = useRoutes(routes);
 
-
+  console.log('Start');
+setTimeout(function () {
+console.log('Timeout (Macrotask)');
+}, 0);
+console.log('End');
   return ( 
-
+     
     <div className="wrappa">
         
        {element}
