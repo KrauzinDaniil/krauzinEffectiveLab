@@ -1,0 +1,40 @@
+header {
+    width: 100%;
+    background-color: var(--header-element-color);
+
+}
+
+span img {
+
+
+    width: 5%;
+
+
+}
+
+span {
+    padding: 0.5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav {
+    display: flex;
+
+ 
+}
+
+nav>div {
+    color: var(--nav-element-color);
+    margin-right: 7px;
+}
+
+.active {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.navLink {
+    font-weight: 100;
+}

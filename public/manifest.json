@@ -1,0 +1,25 @@
+{
+  "name": "Marvel",
+  "icons": [
+    {
+      "src": "/public/marvelous.png",
+      "type": "image/png",
+      "sizes": "1024x1024",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/public/marvelous.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "purpose": "any"
+      
+    }
+  ],
+  "start_url": ".",
+  "short_name": "Marvel",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
