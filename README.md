@@ -6,6 +6,9 @@ VITE_PUBLIC_API_KEY = {ваш публичный ключ}
 VITE_PRIVATE_API_KEY = {ваш приватный ключ} 
 VITE_BASE_URL=https://gateway.marvel.com
 
+после скачивания npm install, npm run dev в корневой папке 
+                 
+
 ![Скриншот 1](git_images/1.png)
 ![Скриншот 2](git_images/2.png)
 
