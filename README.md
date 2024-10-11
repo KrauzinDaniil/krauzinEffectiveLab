@@ -3,7 +3,7 @@
  после этого вставьте в файл .env
 
 VITE_PUBLIC_API_KEY = {ваш публичный ключ}
-VITE_PRIVATE_API_KEY = {ваш приватный ключ ключ} 
+VITE_PRIVATE_API_KEY = {ваш приватный ключ} 
 VITE_BASE_URL=https://gateway.marvel.com
 
 ![Скриншот 1](git_images/1.png)
